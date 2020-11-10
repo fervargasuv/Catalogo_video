@@ -16,3 +16,19 @@ Algebra relacional
  π Nombre σ evaluacion = 3 and id_usuario >=6  usuarios ⨝ Resena
 π Nombre (σcontenido_pag(σ Fecha_estreno <='2005-01-01' and Fecha_estreno >='1996-01-01'))
 π Nombre,telefono,email σ Tipo_de_contenido = 'Reseñas'  Admiinistrador ⨝ pagina
+
+
+Nuevas consultas:
+select Nombre from contenido_pag natural join resena where id_usuario>(select MAX(id_usuario)from resena where evaluacion = 5);
+select id from resena natural join contenido_pag where Genero in ('Accion');
+select * from resena natural join contenido_pag where Genero= "Drama" group by id_usuario;
+select Nombre from contenido_pag natural join resena where Tipo_categoria in (1) and evaluacion = 5;
+select * from usuarios natural join resena where (evaluacion = 3) group by Nick;
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'administrador';
+SELECT column_name,data_type,data_length FROM all_tab_columns  WHERE table_name='usuarios' AND column_name='contrasena';
+
+
+
+
+relacional:
+π id_usuario σ Genero = 'Drama' ( resena ⨝ contenido_pag )
