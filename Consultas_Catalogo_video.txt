@@ -1,0 +1,58 @@
+Entrega 1:
+DROP TABLE resena;
+alter table administrador modify nombre varchar(46) NOT NULL;
+ALTER TABLE usuarios change Nick Nombre varchar (20);
+DELETE FROM resena WHERE evaluacion = 1;
+DELETE FROM contenido_pag WHERE Genero = "accion";
+insert into administrador(nombre,Telefono,Email) values ("Celso cisternas","958431293","Celsitodelflow@email.com");
+insert into usuarios(Nombre,Contraseña) values ("FGALDA","Celsito");
+insert into contenido_pag (Nombre,Director,Genero,Fecha_estreno,Tipo_categoria) values("Infinity war","Joe russo-Anthony Russo","Ciencia Ficcion","2018-04-23",1);
+select Nombre from usuarios natural join Resena where Evaluacion = 3 and id_usuario >= 6;
+select  nombre,telefono,email from administrador natural join pagina where tipo_de_contenido = "Reseñas";
+select Nombre from contenido_pag where (Fecha_estreno BETWEEN "1996-01-01" and "2005-01-01") AND TIPO_CATEGORIA = 1;
+UPDATE contenido_pag SET genero = "Ciencia Ficcion" WHERE nombre= "Stars wars";
+UPDATE contenido_pag SET genero = "Infantil" WHERE genero="Animacion" and genero = "animacion";
+
+Algebra relacional
+ π Nombre σ evaluacion = 3 and id_usuario >=6  usuarios ⨝ Resena
+π Nombre (σcontenido_pag(σ Fecha_estreno <='2005-01-01' and Fecha_estreno >='1996-01-01'))
+π Nombre,telefono,email σ Tipo_de_contenido = 'Reseñas'  Admiinistrador ⨝ pagina
+
+
+Entrega 2:
+select Nombre from contenido_pag natural join resena where id_usuario>(select MAX(id_usuario)from resena where evaluacion = 5);
+select id from resena natural join contenido_pag where Genero in ('Accion');
+select * from resena natural join contenido_pag where Genero= "Drama" group by id_usuario;
+select Nombre from contenido_pag natural join resena where Tipo_categoria in (1) and evaluacion = 5;
+select * from usuarios natural join resena where (evaluacion = 3) group by Nick;
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'administrador';
+SELECT column_name,data_type,data_length FROM all_tab_columns  WHERE table_name='usuarios' AND column_name='contrasena';
+select * from usuarios natural join resena where avg(evaluacion)<=3 and id_usuario=4;
+Select * from usuario natural join resena where MIN(select Evaluacion from resena where ID_usuario=7)='3ESTRELLA';
+select * from contenido_pag natural join resena where MAX(select Fecha_estreno from contenido_pag) and Evaluacion='4ESTRELLA';
+
+
+
+relacional:
+π id_usuario σ Genero = 'Drama' ( resena ⨝ contenido_pag )
+
+entrega 3:
+Select * from contenido_pag natural join resena where Fecha_estreno = (Select MIN(Fecha_estreno) FROM contenido_pag) and Evaluacion>=1;
+Select Nombre,Tipo_categoria,Genero from contenido_pag natural join resena where Evaluacion='4' group by Nombre;
+select count(*) FROM Contenido_pag natural join resena where Tipo_categoria=1 and Evaluacion >=3;
+select * from contenido_pag natural join resena where Evaluacion > (Select AVG(Evaluacion) from resena) and Tipo_Categoria=3;
+Select * from usuarios natural join resena group by Nick;
+Select * from information_schema.views natural join contenido_pag where Tipo_categoria='PELICULA' group by ID;
+Select * from information_schema.global_status natural join contenido_pag where Nombre='Scarface';
+Select * from information_schema.statistics natural join contenido_pag where MAX(Fecha_estreno)>MIN(Select Fecha_estreno from contenido_pag where ID=5) group by information_schema.statistics.index_schema;
+e2:
+Mostrar el nombre de la serie/pelicula/documental en donde el ultimo usuario registrado haya evaluado 5
+Mostrar la id de las series/peliculas/documentales que sea de genero de acción
+Mostrar las series/peliculas/documentals que sean de denero drama que han sido evaluadas
+e3:
+Mostrar la serie/pelicula/documental que posea mayor antiguedad
+Mostrar el nombre, el tipo de categoria y genero de todas las peliculas que tengan una evalución de 4
+Mostrar el numero de Peliculas que tengan una evaluacion mayor a 3
+Mosrar los documentales que posean una evaluacion mayor al promedio de todas las evaluaciones
+Mostrar a los usuarios que hayan realizado una evaluacion 
+
